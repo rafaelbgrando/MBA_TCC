@@ -18,6 +18,9 @@ pacotes <- c("plotly", #plataforma gráfica
              'scales',     # importa paletas de cores
              'caret',      # Funções úteis para machine learning
              'randomForest', #Rodar algorítimo Random Forest
+             'plotROC',
+             'caret',
+             'Rmisc',
               'sjPlot') #elaboração de tabelas de contingência
 
 if(sum(as.numeric(!pacotes %in% installed.packages())) != 0){
@@ -127,7 +130,7 @@ db_analise <- db_analise %>% relocate (Vitoria, .after = New_iD)
 # Estatísticas descritivas univariadas
 summary(db_analise[,2:10])
 
-summary (db_analise[,c(3,4,5,6,7,9,10)]) %>%
+summary (db_analise[,c(2,8)]) %>%
   kable() %>%
   kable_styling(bootstrap_options = "striped", 
                 full_width = TRUE, 
@@ -403,7 +406,7 @@ avalia <- function(modelo, nome_modelo="modelo"){
     theme(legend.position = "none") +
     ggtitle(paste("Curva ROC | ", nome_modelo, " | AUC-treino=",
                   percent(tcs_treino[1]),
-                  "| AUC_teste = ",
+                  "| AUC-teste = ",
                   percent(tcs_teste[1]))
     )
   
